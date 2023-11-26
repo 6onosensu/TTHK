@@ -65,12 +65,12 @@ print("The diagonal of a rectangilar piece of land is ", d ,"m")
 
 #Sixth task
 try:
-    aeg = float(input("mitu tundi kulus soiduks? "))
-    teepikkus = float(input("mitu kilomeetrit soitsid? "))
-    kiirus = round(teepikkus / aeg,2)
-    print("sinu kiirus oli " + str(kiirus) + " km/h")
+  aeg = float(input("mitu tundi kulus soiduks? "))
+  teepikkus = float(input("mitu kilomeetrit soitsid? "))
+  kiirus = round(teepikkus / aeg,2)
+  print("sinu kiirus oli " + str(kiirus) + " km/h")
 except :
-    print("Andmetuubi viga!")
+  print("Andmetuubi viga!")
 
 
 #seventh task
