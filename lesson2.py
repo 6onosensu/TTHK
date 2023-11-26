@@ -3,10 +3,11 @@ s = 0
 numbers = []
 runApp = True
 
-while  runApp: 
+while runApp: 
   user_input = input("Input quit or your number: ").lower().strip()
+  print(user_input)
   if user_input == "quit":
-    runApp == False
+    runApp = False
   else:
     try:
       number = float(user_input)

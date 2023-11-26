@@ -1,9 +1,73 @@
-from datetime import date
+from datetime import date 
+
+#14
+people = int(input('Enter number of people: '))
+print('Here are the sizes of buses by seating capacity: \nSmall bus - Capacity up to 10 people\nStandart bus - Capacity up to 25 people\nBig bus - Capacity up to 50 people\nVery big bus - Capacity up to 100 people')
+sizeOfTheBus = input('Enter size of the bus (small/standard/big/very big): ').lower()
+if people < 10:
+  print('Your  order')
+
+#13
+gender13 = input('Enter your gender (male/female): ').lower()
+if gender13 == 'male':
+  age13 = int(input('Enter your age: '))
+  if age13 >= 16 and age13 <= 18:
+    print('You are a good fit for this team!')
+  else:
+    print('Sorry, You are not a good fit for our team.')
+else:
+  print('Sorry, You are not a good fit for us.')
+
+#12
+inputPrice = float(input('Enter cost of goods in eur: '))
+if inputPrice < 10:
+  answer12 = inputPrice - (inputPrice / 10)
+else:
+  answer12 = inputPrice - (inputPrice / 20)
+print(answer12)
+
+#11
+bday = date(int(input("year of your birthday: ")),
+            int(input("mounth of your birthday: ")),
+            int(input("day of your birthday: ")))
+now = date.today().year #2023
+if (now - bday.year) % 5 == 0: #bday>date(2000,1,1,)
+  print("anniversary")
+else:
+  print("-----------")
+
 #10
 try:
-    
-  float(input("Enter the first number: "))
-
+  a10 = float(input("Enter the first number: "))
+  try:
+    b10 = float(input("Enter the second number: ")) 
+    action = input("action:")
+    if action in ["+","-","*","/","**","%","//"]:
+      if action == "+" :
+        answer = a10 + b10
+      elif action == "-" :
+        answer = a10 - b10
+      elif action == "*" :
+        answer = a10 * b10
+      elif action == "/" :
+        if b10 == 0 :
+          answer = "DIV/0"
+        else :
+          answer = a10 / b10
+      elif action == "**" :
+        answer = a10 ** b10
+      elif action == "%" :
+        answer = a10 % b10
+      else :
+        answer = a10 // b10
+        
+      print("{0}{1}{2} = {3}".format(a10,action,b10,answer))
+    else:
+      print("Sign entered incorrectly")
+  except :
+    print("Wrong data type")
+except:
+  print("Data entered incorrectly")
 
 #9
 a = int(input("a: "))
@@ -47,17 +111,6 @@ for item in cart:
   fullprice = fullprice + item
 
 print(fullprice)
-
-
-#11
-bday = date(int(input("year of your birthday: ")),int(input("mounth of your birthday: ")),int(input("day of your birthday: ")))
-now = date.today().year #2023
-if (now - bday.year) % 10 == 0: #bday>date(2000,1,1,)
-  print("anniversary")
-else:
-  print("-----------")
-
-
 
 #7 
 average_heights = {'male': 175, 'female': 162}
