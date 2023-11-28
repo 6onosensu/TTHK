@@ -20,10 +20,6 @@ while runApp:
     except ValueError:
       print("That´s not a number!")
 
-
-            
-
-
 #voileib
 soov = input("Kas sa tahad suua?: ").lower()
 if soov == "yes":
@@ -37,7 +33,6 @@ if soov == "yes":
     print("vale valik!")
 else:
   print("ei taha, siis ei taha")
-
 
 #Grant
 student = input("Answer yes or no to all questions, except this one: What is your name?: ")
