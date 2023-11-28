@@ -1,11 +1,32 @@
 from datetime import date 
 
 #14
-people = int(input('Enter number of people: '))
-print('Here are the sizes of buses by seating capacity: \nSmall bus - Capacity up to 10 people\nStandart bus - Capacity up to 25 people\nBig bus - Capacity up to 50 people\nVery big bus - Capacity up to 100 people')
-sizeOfTheBus = input('Enter size of the bus (small/standard/big/very big): ').lower()
-if people < 10:
-  print('Your  order')
+bus_sizes = {
+  'small': 10,
+  'standart': 25,
+  'big': 50,
+  'very big': 100
+}
+
+people = int(input('Enter total number of people: '))
+print('Here are the sizes of buses by seating capacity: \nSmall bus - Capacity up to 10 people\nStandart bus - Capacity up to 25 people\nBig bus - Capacity up to 50 people\nVery big bus - Capacity up to 100 people \n..............................................')
+
+try:
+  size_of_bus = input('Enter size of the bus (small/standard/big/very big): ').lower().strip()
+  size = bus_sizes.get(size_of_bus)
+
+  buses_needed = people // size
+  people_in_last_bus = people % size
+
+  if people_in_last_bus > 0:
+    buses_needed += 1
+  else:
+    buses_needed = size
+
+  print(f"Buses needed: {buses_needed}")
+  print(f"People in the last bus: {people_in_last_bus}")
+except: 
+  print("The bus size entered incorrectly.")
 
 #13
 gender13 = input('Enter your gender (male/female): ').lower()
