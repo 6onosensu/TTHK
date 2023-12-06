@@ -46,10 +46,9 @@ else:
   while c != 1:
 
     if c % 2 == 0: #if c % 2 = 0:
-      c = c // 2 #c == c / 2
+      c = c // 2
     else:
-      c = 3 * c + 1
-      #c == (3*c + 1) / 2
+      c = (3*c + 1) // 2
     print(c, end = " ")
 print()     
 print("Hypothesis is True") #print("'')
