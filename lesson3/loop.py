@@ -1,19 +1,16 @@
 import math
 from random import randint as rand
 
-# 12
-N = rand(2, 10)
-m = rand(1, 10)
-sum = m
-print("Cars: ", N)
-print("Hours:", m)
-for t in range(N-1):
-    m = (m / 6) * 7
-    sum += m
-    print(m)
-print("Cars were work: ", sum, "hr")
+# 17
+for num in range(1, 10):
+    print("multiplication by", num)
+    for num2 in range(1, 10):
+        expression = f"{num} * {num2}"
+        multiplication = eval(expression)
+        print(expression, "=", multiplication)
 
 # 29
+print("task 29")
 for i in range(9):
     for x in range(9):
         if x == 0 or i == x:
@@ -22,11 +19,76 @@ for i in range(9):
             print("0", end=" ")
     print()
 
+# 16
+for i in range(1, 10):
+    for x in range(1, 10):
+        if x == i and i != 0:
+            print(i, end=" ")
+        else:
+            print("0", end=" ")
+    print()
+
 # 15
+print(" ")
 for y in range(10):
     for x in range(10):
         print(x, end=" ")
     print()
+
+# 14
+N = rand(1, 100)
+product = 1
+for i in range(1, N):
+    product *= i
+print(product)
+
+# 13
+count = 0
+sum = 0
+for i in range(100, 1000):
+    if i % 7 == 0:
+        count += 1
+        sum += i
+print(count, sum)
+
+# 13 chatgpt:
+sum = 0
+numbers = [n for n in range(100, 1001) if n % 7 == 0]  # list
+count = len(numbers)
+for i in numbers:
+    sum += i
+print(count, sum)
+
+# 12
+N = rand(2, 10)
+m = rand(1, 10)
+sum = m
+print("Hay mowers: ", N)
+print("Hours:", m)
+for t in range(N-1):
+    m = (m / 6) * 7
+    sum += m
+print("Hay movers were work:", round(sum, 2), "hr")
+
+# 11
+product = 1
+a = rand(2, 99)
+for num in range(11, 100, 2):
+    if num % a == 0:
+        print("num is", num)
+        product *= num
+        print(f"a: {a}, product: {product}")
+
+# 10
+txt = "Enter 10 pairs of numbers in this form(1,2; 3,4; ...): "
+list_of_pairs = input(txt).split("; ")
+for pair in list_of_pairs:
+    two_num = pair.split(",")
+    txt = "The bigger number is:"
+    if two_num[0] > two_num[1]:
+        print(txt, two_num[0])
+    else:
+        print(txt, two_num[1])
 
 # 9
 interest_now = float(input("Enter the deposit interest rate now: "))
@@ -42,13 +104,13 @@ print("""In {0} years, the amount of your deposit with {1}
 # 8
 one_inch = 2.5
 count = 0
-for i in range(1, 20,):
+for i in range(1, 20):
     i *= one_inch
     count += 1
     print("{0} inch is equel: ".format(count), i, "cm")
 
 # 7
-K = int(input("Enter a multiple number: "))
+K = int(input("7:Enter a multiple number: "))
 A = int(input("Enter start of the interval: "))
 B = int(input("Enter end of the interval: "))
 for i in range(A, B):
@@ -58,7 +120,7 @@ for i in range(A, B):
 # 6
 positive_numbers = []
 negative_numbers = []
-inputNumbers = input("Enter your numbers using space button: ")
+inputNumbers = input("6:Enter your numbers using space button: ")
 listOfNumbers = inputNumbers.split(" ")
 numbers = [int(number) for number in listOfNumbers]
 for number in numbers:
@@ -71,7 +133,7 @@ print("Quantity of the positive numbers and zero is ", len(positive_numbers),
 
 # 5
 answer = 0
-inputNumbers = input("Enter your numbers using space button: ")
+inputNumbers = input("5:Enter your numbers using space button: ")
 listOfNumbers = inputNumbers.split(" ")
 print(listOfNumbers)
 numbers = [int(number) for number in listOfNumbers]
