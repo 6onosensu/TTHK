@@ -70,14 +70,16 @@ count2 = 0
 for i in range(1, 4):
     player1_choice = players_moves[player1][i]
     player2_choice = players_moves[player2][i]
+    get_value1 = winning_combinations.get((player1_choice, player2_choice))
+    get_value2 = winning_combinations.get((player2_choice, player1_choice))
     if player1_choice == player2_choice:
         print(f"Round {i}: Tie")
         count1 += 1
         count2 += 1
-    elif winning_combinations.get((player1_choice, player2_choice)) == player1_choice:
+    elif get_value1 == player1_choice:
         print(f"Round {i}: {player1} wins")
         count1 += 1
-    elif winning_combinations.get((player2_choice, player1_choice)) == player2_choice:
+    elif get_value2 == player2_choice:
         print(f"Round {i}: {player2} wins")
         count2 += 1
     else:
