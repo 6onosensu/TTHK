@@ -1,5 +1,17 @@
 import math
 from random import randint as rand
+# 21
+txt = "Enter 10 numbers including positive and negative numbers: "
+numbers = input(txt).split(" ")
+print(numbers)
+for num in numbers:
+    if num[0] == "-":
+        print(num)
+        list_num = list(num)
+        # ("-")
+        numbers.append(list_num)
+        numbers.remove(num)
+print(numbers)
 
 # break, continue, pass
 phone_number = "123-456-7890"
@@ -7,6 +19,7 @@ for i in phone_number:
     if i == "-":
         continue  # continue skips to the next iteration of the loop
     print(i, end="")
+print()
 while True:
     name = input("Enter your name: ")
     if name == "":
@@ -26,6 +39,23 @@ for i in range(9):
         else:
             print("0", end=" ")
     print()
+
+# 20
+sum = 0
+for i in range(1, 50 + 1):
+    if i % 5 == 0 or i % 7 == 0:
+        sum += i
+print(sum)
+
+# 19
+for i in range(35, 87 + 1):
+    if i % 7 in [1, 2, 5]:
+        print(i, end=" ")
+
+# 18
+for i in range(20, 51):
+    if i % 3 == 0 and not (i % 5 == 0):
+        print(i)
 
 # 17,1
 a = int(input("Enter the first factor: "))
