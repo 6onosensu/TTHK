@@ -1,13 +1,21 @@
 import math
 from random import randint as rand
 
-# 17
-for num in range(1, 10):
-    print("multiplication by", num)
-    for num2 in range(1, 10):
-        expression = f"{num} * {num2}"
-        multiplication = eval(expression)
-        print(expression, "=", multiplication)
+# break, continue, pass
+phone_number = "123-456-7890"
+for i in phone_number:
+    if i == "-":
+        continue  # continue skips to the next iteration of the loop
+    print(i, end="")
+while True:
+    name = input("Enter your name: ")
+    if name == "":
+        break  # Break used to terminate the loop entirely
+for i in range(1, 21):
+    if i == 13:
+        pass  # pass does nothing, acts as a placeholder
+    else:
+        print(i)
 
 # 29
 print("task 29")
@@ -17,6 +25,42 @@ for i in range(9):
             print("x", end=" ")
         else:
             print("0", end=" ")
+    print()
+
+# 17,1
+a = int(input("Enter the first factor: "))
+b = int(input("Enter the second factor: "))
+for i in range(1, a + 1):
+    for j in range(1, b + 1):
+        product = i * j
+        str_product = len(str(product))
+        if str_product < 1:
+            product = str(product) + "   |"
+        elif str_product < 2:
+            product = str(product) + "  |"
+        elif str_product < 3:
+            product = str(product) + " |"
+        else:
+            product = str(product) + "|"
+        print(product, end="")
+    print()
+
+# 17
+for num in range(1, 10):
+    print("multiplication by", num)
+    for num2 in range(1, 10):
+        expression = f"{num} * {num2}"
+        multiplication = eval(expression)
+        print(expression, "=", multiplication)
+
+# 16,1
+rows = int(input("How many rows?: "))
+columns = int(input("How many columns?: "))
+symbol = input("Enter a symbol to use: ")
+
+for i in range(rows):
+    for j in range(columns):
+        print(symbol, end="")
     print()
 
 # 16
