@@ -1,46 +1,20 @@
-def print_actions(people: list, salaries: list):
-    print("")
-    print("Add to the list: add person salary")
-    print("Delete from the list: delete person salary")
-    print("The highest salary: max")
-    print("The lowest salary: min")
-    print("To sort ((higher-from higher/lower-from lower) salary): sort salaries higher/lower")
-    print("To see each person with salary: show each")
-    print("Find peopele with same salary: same salary")
-    print("")
+def find_smallest(list: list):
+    smallest = list[0]
+    smallest_index = 0
+    for i in range(1, len(list)):
+        if list[i] < smallest:
+            smallest = list[i]
+            smallest_index = i
+    return smallest_index
 
-
-def controller(people: list, salaries: list, action):
-    if action[0] == "add":
-        person = action[1]
-        salary = action[2]
-        people, salaries = add_to_list(people, salaries, person, salary)
-        person_salary(people, salaries)  
-    elif action[0] == "delete":
-        person = action[1]
-        salary = action[2]
-        people, salaries = delete_from_list(people, salaries, person)
-        person_salary(people, salaries)
-    elif action[0] == "max":
-        maximum, names = highest(people, salaries)
-        for name in names:
-            print(f"This person has the highest salary: {name} with the salary: {maximum} Eur")
-    elif action[0] == "min":
-        minimum, names = lowest(people, salaries)
-        for name in names:
-            print(f"This person has the lowest salary: {name} with the salary: {minimum} Eur")
-    elif action[0] == "sort" and action[1] == "salaries":
-        if action[2] == "lower" or action[2] == "higher":
-            s_people, s_salaries = sort_salaries(people, salaries, action[2])
-            print(s_people, s_salaries)
-        else:
-            print("Wrong action 3, must be 'lower' or 'higher'")
-    elif action[0] == "show" and action[1] == "each":
-        person_salary(people, salaries)
-    elif action[0] == "same" and action[1] == "salary":
-        find_same_salary(people, salaries)
-
-
+def find_largest(list: list):
+    largest = list[0]
+    largest_index = 0
+    for i in range(1, len(list)):
+        if list[i] > largest:
+            largest = list[i]
+            largest_index = i
+    return largest_index
 
 def person_salary(people: list, salaries: list):
     if len(people) == len(salaries):
@@ -79,35 +53,29 @@ def delete(people, salaries, person):
     return people, salaries
 '''
 
-
 # 3
-def highest(people: list, salaries: list):
+def largest_salary(people: list, salaries: list):
+    index = find_largest(salaries)
+    largest = salaries[index]
     list_of_names = []
-    maximum = max(salaries)
-
-    quantity = salaries.count(maximum)
-    a = 0
-    for _ in range(quantity):
-        index = salaries.index(maximum, a)
-        name = people[index]
-        a += 1
-        list_of_names.insert(name)
-    return maximum, list_of_names  
+    for i in range(len(salaries)):
+        if salaries[i] == largest:
+            list_of_names.append(people[i])
+    # list_of_names = [people[i] for i in range(len(salaries)) if salaries[i] == largest]
+    return largest, list_of_names
 
 # 4
-def lowest(people: list, salaries: list):
+def smallest_salary(people: list, salaries: list):
+    index = find_smallest(salaries)
+    smallest = salaries[index]
     list_of_names = []
-    minimum = min(salaries)
-    quantity = salaries.count(minimum)
-    a = 0
-    for _ in range(quantity):
-        index = salaries.index(minimum, a)
-        name = people[index]
-        a += 1
-        list_of_names.insert(name)
-    return minimum, list_of_names  
+    for i in range(len(salaries)):
+        if salaries[i] == smallest:
+            list_of_names.append(people[i])
+    return smallest, list_of_names
 
 # 5
+'''
 def sort_salaries(people: list, salaries: list, sortby):
     # zip(list1, list2) - Combines two lists into a list of tuples
     # zip(*variable) - The * operator for unpacking a list of tuples
@@ -121,8 +89,24 @@ def sort_salaries(people: list, salaries: list, sortby):
         sorted_pairs = sorted(zip(salaries, people), reverse=True)
         sorted_salaries, sorted_people = zip(*sorted_pairs)
     return list(sorted_people), list(sorted_salaries)
+'''
+def sort_salaries_with_people(people: list, salaries: list, sortby):
+    sorted_people = []
+    sorted_salaries = []
+    if sortby == "lower":
+        for i in range(len(salaries)):
+            smallest = find_smallest(salaries)
+            sorted_salaries.append(salaries.pop(smallest))
+            sorted_people.append(people.pop(smallest))
+    else:
+        for i in range(len(salaries)):
+            largest = find_largest(salaries)
+            sorted_salaries.append(salaries.pop(largest))
+            sorted_people.append(people.pop(largest))
+    return sorted_people, sorted_salaries
 
 # 6
+'''
 def find_same_salary(people: list, salaries: list):
     dictionary = {}
     for salary, person in zip(salaries, people):
@@ -133,11 +117,34 @@ def find_same_salary(people: list, salaries: list):
     for salary, names in dictionary.items():
         if len(names) > 1:
             print(f"Salary {salary}: {', '.join(names)}")
-
+'''
+def find_same_salary(people: list, salaries: list):
+    checked = []  # or checked = set()
+    for i in range(len(salaries)):
+        if salaries[i] in checked:
+            continue
+        same_salary_people = [people[i]]
+        for j in range(i + 1, len(salaries)):
+            if salaries[i] == salaries[j]:
+                same_salary_people.append(people[j])
+        if len(same_salary_people) > 1:
+            print(f"Salary {salaries[i]}: {', '.join(same_salary_people)}, Quantity: {len(same_salary_people)}")
+            checked.append(salaries[i])  # or checked.add(salaries[i]) if 164 is set
 
 # 7
-def find_salaries_by_name():
-    pass
+def find_salary_by_name(people: list, salaries: list, name: str):
+    name = name.capitalize()
+    salary_list = []
+    for i, person in enumerate(people):
+        person = person.capitalize()
+        if person == name:
+            salary_list.append(salaries[i])
+    return name, salary_list
+# enumerate() - used for to simultaneously obtain the index and value of elements when iterating through a list
+            
+
+
+
 
 
 def sort_list(people: list, salaries: list):

@@ -1,7 +1,7 @@
-from functions import *
+from controller import *
 
-salaries = [1200, 2500, 750, 395, 1200]
-people = ["A", "B", "C", "D", "E"]
+salaries = [1200, 2500, 2500, 750, 395, 1200, 395]
+people = ["A", "Y", "B", "C", "D", "E", "A"]
 
 while True:
     print_actions(people, salaries)
