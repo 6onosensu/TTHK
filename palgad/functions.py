@@ -142,6 +142,24 @@ def find_salary_by_name(people: list, salaries: list, name: str):
     return name, salary_list
 # enumerate() - used for to simultaneously obtain the index and value of elements when iterating through a list
             
+#8
+def filter_by_salary(people: list, salaries: list, amount: int, mode="more"):
+    result = []
+    for i in range(len(salaries)):
+        if (mode == "more" and salaries[i] > amount) or (mode == "less" and salaries[i] < amount):
+            print(f"{people[i]}: {salaries[i]}")
+            result.append((people[i], salaries[i]))
+    return result
+
+#9
+def top(people: list, salaries: list):
+    poorest_index = find_smallest(salaries)
+    richest_index = find_largest(salaries)
+    poorest_person = people[poorest_index]
+    richest_person = people[richest_index]
+    print("The poorest:", poorest_person, salaries[poorest_index])
+    print("The richest:", richest_person, salaries[richest_index])
+
 
 
 

@@ -10,6 +10,8 @@ def print_actions(people: list, salaries: list):
     print("To see each person with salary: show")
     print("Find peopele with same salary: same")
     print("Find salary by name: find 'name'")
+    print("Top of the poorest and richest people: top")
+    print("Filter people by salary: filter 'amount' more(by default)/less")
     print("")
 
 
@@ -45,3 +47,5 @@ def controller(people: list, salaries: list, action):
     elif action[0] == "find":
         result = find_salary_by_name(people, salaries, action[1])
         print(result[0], result[1])
+    elif action[0] == "top":
+        result = top(people, salaries)
