@@ -1,5 +1,14 @@
 from random import randint
-
+# 8
+lists = [
+    ['крот', 'белка', 'выхухоль'], 
+    ['a', 'aa', 'aaa', 'aaaa', 'aaaaa'],
+    ['qweasdqweas', 'q', 'rteww', 'ewqqqqq']
+]
+for lst in lists:
+    max_length = max(len(s) for s in lst)
+    aligned_list = [s.ljust(max_length, '_') for s in lst]
+    print(aligned_list)
 
 # 6
 quatntity_numbers = randint(2, 20)
@@ -9,14 +18,10 @@ for _ in range(quatntity_numbers):
 print(list_of_numbers)
 while True:
     max_number = max(list_of_numbers)
-
     num_index = list_of_numbers.index(max_number)
     list_of_numbers.pop(num_index)
-
     number = round(max_number / len(list_of_numbers), 2)
-
     list_of_numbers.append(number)
-
     if max(list_of_numbers) <= 1:
         break
 
@@ -33,12 +38,19 @@ print(f"From 0 to 1.0: {list_of_numbers}")
 list_of_numbers.reverse()
 print(f"From 1.0 to 0: {list_of_numbers}")
 
-# Change NADO SDELAT 5
+# Change 5
 max_quantity = randint(2, 20)
 num_list = []
 for i in range(max_quantity):
     num_list.append(randint(-100, 100))
 print(num_list)
+num_elements_to_swap = int(input("How many elements to swap places?: "))
+if num_elements_to_swap * 2 > len(num_list):
+    print("Too many elements to swap!")
+else:
+    for i in range(num_elements_to_swap):
+        num_list[i], num_list[-i - 1] = num_list[-i - 1], num_list[i]
+
 
 
 # postiindex 4
