@@ -23,6 +23,7 @@ def person_salary(people: list, salaries: list):
     else:
         print("The lists are empty or incomplete")
 
+
 # 1
 def add_to_list(people: list, salaries: list, person, salary):
     salary = int(salary)
@@ -142,16 +143,18 @@ def find_salary_by_name(people: list, salaries: list, name: str):
     return name, salary_list
 # enumerate() - used for to simultaneously obtain the index and value of elements when iterating through a list
             
-#8
-def filter_by_salary(people: list, salaries: list, amount: int, mode="more"):
+# 8
+def filter_by_salary(people: list, salaries: list, amount, mode="more"):
     result = []
+    amount = float(amount)
     for i in range(len(salaries)):
-        if (mode == "more" and salaries[i] > amount) or (mode == "less" and salaries[i] < amount):
-            print(f"{people[i]}: {salaries[i]}")
-            result.append((people[i], salaries[i]))
+        salary = float(salaries[i])
+        if (mode == "more" and salary > amount) or (mode == "less" and salary < amount):
+            print(f"{people[i]}: {salary}")
+            result.append((people[i], salary))
     return result
 
-#9
+# 9
 def top(people: list, salaries: list):
     poorest_index = find_smallest(salaries)
     richest_index = find_largest(salaries)
@@ -160,12 +163,59 @@ def top(people: list, salaries: list):
     print("The poorest:", poorest_person, salaries[poorest_index])
     print("The richest:", richest_person, salaries[richest_index])
 
+# 10
+def average(people: list, salaries: list):
+    average_salary = sum(salaries) / len(salaries)
+    closest_salary_difference = abs(salaries[0] - average_salary)
+    closest_people = [people[0]]
 
+    for i in range(1, len(salaries)):
+        difference = abs(salaries[i] - average_salary)
+        if difference <= closest_salary_difference:
+            if difference < closest_salary_difference:
+                closest_salary_difference = difference
+            closest_people.append(people[i])
+            salary = salaries[i]
+    print(f"The average salary is: {salary}, and it is received by: {', '.join(closest_people)}")
+    return closest_people, salary
 
+# 11
+def net_salary(people: list, salaries: list, tax_rate=0.2):
+    net_salaries = []
+    for gross_salary in salaries:
+        net_salary = gross_salary - (gross_salary * tax_rate)
+        net_salaries.append(net_salary)
+    for net_salary in net_salaries:
+        for person in people:
+            print(f"{person}: Net salary is {net_salary}")
+    return net_salaries
 
+# 12
+def sort_list(people: list, salaries: list, param):
+    if param == "za":
+        people.sort(reverse=True)
+    else:
+        people.sort()
 
+    sorted_salaries = []
+    for person in people:
+        index = people.index(person)
+        sorted_salaries.append(salaries[index])
+    person_salary(people, sorted_salaries)
+    return people, sorted_salaries
 
-def sort_list(people: list, salaries: list):
-    salaries = salaries.sort()
-    people = people.sort()
+# 13
+def remove_below_average(people: list, salaries: list):
+    _, average_salary = average(people, salaries)
+    to_remove = []
+    for i, salary in enumerate(salaries):
+        if salary < average_salary:
+            to_remove.append(i)
+
+    for index in reversed(to_remove):
+        del people[index]
+        del salaries[index]
+        
+    print(people, salaries)
     return people, salaries
+    
