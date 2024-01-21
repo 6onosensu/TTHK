@@ -215,7 +215,59 @@ def remove_below_average(people: list, salaries: list):
     for index in reversed(to_remove):
         del people[index]
         del salaries[index]
-        
+
     print(people, salaries)
     return people, salaries
+
+# 14
+def format_lists(people: list, salaries: list):
+    formatted_people = []
+    formatted_salaries = []
+    for person in people:
+        person = person.capitalize()
+        formatted_people.append(person)
+    for salary in salaries:
+        salary = int(salary)
+        formatted_salaries.append(salary)
+    person_salary(formatted_people, formatted_salaries)
+    return formatted_people, formatted_salaries
+
+# 15
+def calc_new_salary(people: list, salaries: list, years: int, employee, percent=0.05):
+    name, salary = find_salary_by_name(people, salaries, employee)
+    future_salary = salary * (1 + percent) ** years
+    print(f"In {years} years, employee {name} will receive: {future_salary}")
+    return future_salary
+
+# 16
+def rename_every_third_person(people: list):
+    for i in range(2, len(people), 3):
+        new_name = input(f"Enter a new name for {people[i]}: ")
+        people[i] = new_name
+    print(people)
+    return people
     
+# 17
+def edit_data(people: list, salaries: list, choice, index):
+    index = int(index)
+    if index >= len(people):
+        print("Index out of range of the list")
+    else:
+        if choice == "name":
+            new_name = input("Enter a new name: ")
+            people[index] = new_name
+        elif choice == "salary":
+            new_salary = float(input("Enter a new salary: "))
+            salaries[index] = new_salary
+    person_salary(people, salaries)
+    return people, salaries
+
+# 18
+def find_names_starting_with(people: list, salaries: list, letter):
+    letter = letter.capitalize()
+    print(letter)
+    for name, salary in zip(people, salaries):
+        if name.startswith(letter):
+            print(f"{name} - {salary}")
+
+   
