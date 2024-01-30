@@ -1,3 +1,5 @@
+import random as r
+
 asked_to_add_word = False
 
 def read_file(file):
@@ -89,3 +91,6 @@ def edit(eng: list, rus: list):
             return eng, rus
     print(f"The word '{enter}' not found!")
     return eng, rus
+
+def random_word(eng: list, rus: list):
+    pass

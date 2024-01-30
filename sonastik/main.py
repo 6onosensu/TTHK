@@ -43,4 +43,5 @@ while True:
         eng, rus = edit(eng, rus)
         write_to_file("./sonastik/eng.txt", eng)
         write_to_file("./sonastik/rus.txt", rus)
-
+    elif user_input.startswith("test"):
+        pass
