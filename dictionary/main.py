@@ -1,7 +1,7 @@
 from functions import *
 
 
-txt = ": "
+txt = "your command 'find/edit/add country/capital 'country itself'/'capital itself ': "
 while True:
     enter = input(txt).split()
     if enter == "quit":
@@ -9,9 +9,8 @@ while True:
 
     country_capital, capital_country, countries = txt_to_dict("countries.txt")
     if enter[0] == "find":
-        if enter[1] == "capital":
-            key, value = show_country(capital_country, enter[2], country_capital)
-        elif enter[1] == "country":
-            key, value = show_capital(country_capital, enter[2], capital_country)
-    elif enter[0] == "":
+        key, value = show_country(country_capital, enter[1], enter[2])
+    elif enter[0] == "edit":
+        pass
+    elif enter[0] == "add":
         pass
