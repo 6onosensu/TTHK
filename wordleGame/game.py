@@ -57,7 +57,7 @@ def limit_entry_size(entry, var):
 
 def create_keyboard_buttons(rows, action_buttons):
     buttons = {}
-    for _, row in enumerate(rows):
+    for row in rows:
         row_frame = Frame(root, bg='#2E5894')
         row_frame.pack(side=TOP, pady=2)
         for letter in row:
@@ -153,10 +153,7 @@ lab.pack(pady=20)
 ent_f = Frame(root, bg='#2E5894')
 ent_f.pack(pady=20)
 
-first_row = "QWERTYUIOP"
-second_row = "ASDFGHJKL"
-third_row = "ZXCVBNM"
-rows = [first_row, second_row, third_row]
+rows = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"]
 action_buttons = {'New Game!': new_game, 'Confirm': confirm, 'Erase': erase}
 attempt = 0
 
