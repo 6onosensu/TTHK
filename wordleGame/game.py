@@ -38,7 +38,7 @@ def create_entries(w, ent_f, max, vcmd):
             if i > 0:
                 entries[a][i-1].next_entry = entry  # attribute is adding to each 'Entry' widget to keep track of the next one
         if a > 0:
-            for field in fields[a]:
+            for field in entries[a]:
                 field.config(state='disabled')
     return entries
 
@@ -55,7 +55,7 @@ def limit_entry_size(entry, var):
         except AttributeError:  # 'list' object has no attribute 'delete'
             pass
 
-def create_keyboard_buttons(rows, btns, cmnd):
+def create_keyboard_buttons(rows, action_buttons):
     buttons = {}
     for _, row in enumerate(rows):
         row_frame = Frame(root, bg='#2E5894')
@@ -68,8 +68,8 @@ def create_keyboard_buttons(rows, btns, cmnd):
             buttons[letter] = button
     kb_frame = Frame(root, bg='#2E5894')
     kb_frame.pack(side=TOP, pady=2)
-    for i in range(3):
-        btn = Button(kb_frame, text=btns[i], command=cmnd[i],
+    for txt_btn, command_btn in action_buttons.items():
+        btn = Button(kb_frame, text=txt_btn, command=command_btn,
                      width=10, font='Arial 14', bg="#BCD4E6")
         btn.pack(side=RIGHT, padx=2)
     return buttons
@@ -157,8 +157,7 @@ first_row = "QWERTYUIOP"
 second_row = "ASDFGHJKL"
 third_row = "ZXCVBNM"
 rows = [first_row, second_row, third_row]
-btns = ['New Game!', 'Confirm', 'Erase']
-cmnds = [new_game, confirm, erase]
+action_buttons = {'New Game!': new_game, 'Confirm': confirm, 'Erase': erase}
 attempt = 0
 
 words = txt_to_list("words.txt")
@@ -167,7 +166,7 @@ max = max_attempts(word_len)
 # %P- is a special validation var in Tkinter, the value that will be entered into the widget if the validation succeeds
 vcmd = (root.register(only_letters), '%P')
 fields = create_entries(word_len, ent_f, max, vcmd)
-buttons = create_keyboard_buttons(rows, btns, cmnds)
+buttons = create_keyboard_buttons(rows, action_buttons)
 
 result_label = Label(root, text="",  fg="#FAEBD7",
                      font = "Arial 14", bg='#2E5894')
