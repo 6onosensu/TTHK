@@ -1,40 +1,15 @@
+from tkinter import *
 from sqlite3 import *
 from sqlite3 import Error
 
-create_authors_table = """
-CREATE TABLE IF NOT EXISTS authors(
-author_id INTEGER PRIMARY KEY AUTOINCREMENT,
-author_name TEXT NOT NULL,
-date_of_birth DATE
-);
-"""
-create_genre_table = """
-CREATE TABLE IF NOT EXISTS genre(
-genre_id INTEGER PRIMARY KEY AUTOINCREMENT,
-genre_name TEXT NOT NULL
-);
-"""
-
-create_books_table = """
-CREATE TABLE IF NOT EXISTS books(
-book_id INTEGER PRIMARY KEY AUTOINCREMENT,
-title TEXT NOT NULL,
-publication_date DATE,
-author_id INTEGER,
-genre_id INTEGER,
-FOREIGN KEY (author_id) REFERENCES authors(author_id),
-FOREIGN KEY (genre_id) REFERENCES genre(genre_id)
-);
-"""
-
 def create_connection(path: str):
-    connection = None
+    conn = None
     try:
-        connection = connect(path)
+        conn = connect(path)
         print("The connection has been successfully made.")
     except Error as e:
         print(f"An error occurred '{e}'")
-    return connection
+    return conn
 
 def execute_query(connection, query: str):
     try:
@@ -120,7 +95,3 @@ def delete_books_by_genre(connection, genre_id):
     WHERE genre_id = {genre_id};
     """
     execute_query(connection, query)
-
-
-def searching():
-    pass

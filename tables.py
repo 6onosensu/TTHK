@@ -1,5 +1,3 @@
-from functions import *
-
 create_authors_table = """
 CREATE TABLE IF NOT EXISTS authors(
 author_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -63,42 +61,5 @@ select_books = "SELECT * FROM books"
 delete_data_from_books = "DELETE FROM books WHERE genre_id=1"
 
 delete_table_books = "DROP TABLE books"
-#----------------------------------------------------------------
 
-# connected = create_connection("C:/Users/opilane/Desktop/TTHK/json_database/appData/raamatukogu/data.db")
-connected = create_connection("C:/work/TTHK/json_database/appData/raamatukogu/data.db")
 
-list_= [[create_authors_table, create_authors], [create_genre_table, create_genre], [create_books_table, create_books]]
-for l in list_:
-    for query in l:
-        execute_query(connected, query)
-
-books = execute_read_query(connected, select_books)
-print("The book data:")
-for book in books:
-    print(book)
-
-execute_delete_query(connected, delete_data_from_books)
-print("Deleted books, those with genre_id = 1")
-
-books = execute_read_query(connected, select_books)
-for book in books:
-    print(book)
-
-# execute_read_query(connected, delete_table_books)
-
-add_author(connected, 'J.K. Rowling', '1965-07-31')
-add_genre(connected, 'fantasy')
-add_book(connected, 'Harry Potter and the Philosopher`s Stone', '1997-06-26', 6, 6)
-
-books = execute_read_query(connected, select_books)
-for book in books:
-    print(book)
-
-update_book(connected, book_id=8, title='New Title', publication_date='2022-01-01')
-books = execute_read_query(connected, select_books)
-for book in books:
-    print(book)
-
-#delete_books_by_author(connected, author_id=1)
-#delete_books_by_genre(connected, genre_id=1)
