@@ -1,6 +1,3 @@
-from ast import Global
-from cProfile import label
-from pickle import FRAME
 from tkinter import *
 from tkinter import ttk
 from functions import *

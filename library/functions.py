@@ -1,4 +1,3 @@
-from cProfile import label
 from tkinter import *
 from sqlite3 import *
 import sqlite3
