@@ -1,6 +1,6 @@
-from libraryByOOP.partOFtkinter.BaseEntry import BaseEntry
-from libraryByOOP.partOFtkinter.BaseLabel import BaseLabel
-from libraryByOOP.partOFtkinter.BaseFrame import BaseFrame
+from BaseEntry import BaseEntry
+from BaseLabel import BaseLabel
+from BaseFrame import BaseFrame
 from tkinter import *
 
 

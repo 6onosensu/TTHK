@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
-from libraryByOOP.partOFtkinter.BaseLabel import BaseLabel
-from libraryByOOP.partOFtkinter.BaseFrame import BaseFrame
+from BaseLabel import BaseLabel
+from BaseFrame import BaseFrame
 
 
 class ResultFrame(BaseFrame):

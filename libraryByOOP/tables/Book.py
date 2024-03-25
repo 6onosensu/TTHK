@@ -6,7 +6,7 @@ class Book(DataManager):
         self.id = id
         if not name:
             data = self.fetch_records("books", ("id", id))[0]
-
+        
         self.name = name or data.name
         self.num_of_pages = num_of_pages or data.num_of_pages
         self.author_id = author_id or data.author_id

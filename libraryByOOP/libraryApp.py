@@ -1,9 +1,9 @@
 from tkinter import Tk
 from DataManager import DataManager
-from libraryByOOP.partOFtkinter.BaseFrame import BaseFrame
-from libraryByOOP.partOFtkinter.ResultFrame import ResultFrame
-from libraryByOOP.partOFtkinter.SearchFrame import SearchFrame
-from libraryByOOP.partOFtkinter.ActionsFrame import ActionsFrame
+from BaseFrame import BaseFrame
+from ResultFrame import ResultFrame
+from SearchFrame import SearchFrame
+from ActionsFrame import ActionsFrame
 
 class LibraryApp(Tk):
     def __init__(self, db_path):

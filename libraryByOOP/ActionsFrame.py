@@ -1,11 +1,11 @@
 from tkinter import *
 from tkinter import messagebox
-import libraryByOOP.partOFtkinter.BaseEntry as BaseEntry
-from libraryByOOP.partOFtkinter.BaseLabel import BaseLabel
-from libraryByOOP.partOFtkinter.BaseFrame import BaseFrame
-from libraryByOOP.tables.Book import Book
-from libraryByOOP.tables.Author import Author
-from libraryByOOP.tables.Genre import Genre
+from BaseEntry import BaseEntry
+from BaseLabel import BaseLabel
+from BaseFrame import BaseFrame
+from tables.Book import Book
+from tables.Author import Author
+from tables.Genre import Genre
 
 
 class ActionsFrame(BaseFrame):
