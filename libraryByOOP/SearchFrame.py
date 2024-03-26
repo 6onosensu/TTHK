@@ -26,8 +26,13 @@ class SearchFrame(tk.Frame):
         self.search_text = tk.StringVar()
         search_entry = BaseEntry(self, textvariable=self.search_text)
         search_entry.pack(pady=10)
-        search_entry.bind('<Return>', self.searching)
+        search_entry.bind('<Return>', self.do_search)
     
-    def searching(self, event=None):
+    def do_search(self, event=None):
         search_query = self.search_text.get().strip()
-        self.result_frame.show_search_results(search_query)
+        if search_query:
+            results = self.db_manager.search_records(search_query)
+            self.result_frame.update_treeview(results)
+            self.search_text.set('')
+        else:
+            print("Please input your query")

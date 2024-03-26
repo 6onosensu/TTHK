@@ -11,11 +11,12 @@ class ActionsFrame(tk.Frame):
     """
     A Frame for performing actions such as adding, deleting, or updating records.
     """
-    def __init__(self, parent, app, db_manager, *args, **kwargs):
+    def __init__(self, parent, app, db_manager, result_frame, *args, **kwargs):
         super().__init__(parent, bg="#290700", *args, **kwargs)
         self.app = app
         self.db_manager = db_manager
         self.init_widgets()
+        self.result_frame = result_frame
 
     def init_widgets(self):
         BaseLabel(self, text="ADD/DELETE/UPDATE/SHOW ALL").pack(pady=0)
@@ -38,36 +39,61 @@ class ActionsFrame(tk.Frame):
             btn = tk.Button(buttonsFrame, text=txtLab, command=command_,
                         width=10, bg="#E8D8D6", fg="#290700")
             btn.pack(side=tk.LEFT, padx=5, pady=0)
+
+        self.show_hints()
+
+    def show_hints(self):
+        txt = """
+            --Write a request and press the required button!--
+            Adding book: title, number_of_pages, author_id, genre_id
+            Adding author/Adding genre: author_name/genre_name
+            Show all records in a table: table_name
+            UPDATE: book/author/genre, book_id/author_id/genre_id, follow_the_order_of_adding
+            DELETE: book/author/genre, book_id/author_id/genre_id
+        """
+        BaseLabel(self, text=txt, font="Arial 12").pack(padx=20, pady=5)
     
     def show_error(self, error_txt):
         print(error_txt)
         messagebox.showerror("Error", error_txt) 
+    
+    def get_data(self):
+        return self.action_entry.get()
+
+    def clear_entry(self):
+        self.action_entry.delete(0, tk.END)
 
     def show_table(self):
-        data = self.get_data().strip().lower()
+        data = self.get_data().lower().strip()
         match data:
             case "genres":
-                return Genre.show_genres(self)
+                records = self.db_manager.fetch_records("genres")
             case "authors":
-                return Author.show_authors(self)
+                records = self.db_manager.fetch_records("authors")
             case "books":
-                return Book.show_books(self)
-
-
+                records = self.db_manager.fetch_records("books")
+            case _:
+                records = []
+                self.show_error("Invalid table name.")
+        self.clear_entry()
+        self.result_frame.update_treeview(records)
+        for record in records:
+            print(record)
 
     def add_author(self):
         data = self.get_data()
         name = data.strip()
         
         author_adding = Author(self.db_manager.db_path, None, name)
-        author_adding.add_author()
+        author_adding.create()
+        self.clear_entry()
 
     def add_genre(self):
-        data = self.get_data()
-        name = data.strip()
+        name = self.get_data().strip()
         
         genre_adding = Genre(self.db_manager.db_path, None, name)
-        genre_adding.add_genre()
+        genre_adding.create()
+        self.clear_entry()
 
     def add_book(self):
         data = self.get_data()
@@ -82,9 +108,10 @@ class ActionsFrame(tk.Frame):
                 self.show_error("Please, ensure that 'pages', 'Author ID' and 'Genre ID' are numbers.")
             
             book_adding = Book(self.db_manager.db_path, None, title, pages, aID, gID)
-            book_adding.add_book()
+            book_adding.create()
         else:
             self.show_error("Invalid input format.")
+        self.clear_entry()
 
     def update_record(self):
         data = self.get_data().split(", ")
@@ -102,6 +129,7 @@ class ActionsFrame(tk.Frame):
             record.update()
         else:
             self.show_error("Not enough data provided for update.")
+        self.clear_entry()
  
     def record_to_update(self, toUpdate, id):
         match toUpdate:
@@ -112,9 +140,6 @@ class ActionsFrame(tk.Frame):
             case "book":
                 return Book(self.db_manager.db_path, id)
 
-    def get_data(self):
-        return self.action_entry.get()
-
     def delete_record(self):
         data = self.get_data().split(", ")
         toDelete = data[0].strip().lower()
@@ -123,28 +148,4 @@ class ActionsFrame(tk.Frame):
             self.db_manager.delete_record_by_id(f"{toDelete}s", id)
         else:
             self.show_error("Invalid record type.")
-
-"""
-if toUpdate not in ["genre", "author", "book"]:
-    self.show_error(f"Invalid record type for update: {toUpdate}")
-    return
-
-try:
-    id = int(data[1].strip())
-    if toUpdate == "genre":
-        updates = {'genre_name': data[2].lower()}
-    elif toUpdate == "author":
-        updates = {'author_name': data[2]}
-    elif toUpdate == "book":
-        updates = {
-            'title': data[2],
-            'num_of_pages': int(data[3]),
-            'author_id': int(data[4]),
-            'genre_id': int(data[5])
-        }
-    self.db_manager.update_record_by_id(f"{toUpdate}s", id, updates)
-except ValueError:
-    self.show_error("id, num_of_pages, author_id, and genre_id must be numbers.")
-except IndexError:
-    self.show_error("Not enough data provided for update.")
-"""
+        self.clear_entry()

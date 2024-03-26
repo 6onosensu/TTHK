@@ -10,7 +10,7 @@ class LibraryApp(Tk):
         super().__init__(*args, **kwargs)
 
         self.title("Welcome to the Library!")
-        self.geometry("1030x600")
+        self.geometry("1030x650")
         self.configure(background='#290700')
 
         container = tk.Frame(self, bg='#290700')
@@ -26,7 +26,7 @@ class LibraryApp(Tk):
         search_frame = SearchFrame(container, self, self.db_manager, result_frame)
         self.frames[SearchFrame] = search_frame
 
-        actions_frame = ActionsFrame(container, self, self.db_manager)
+        actions_frame = ActionsFrame(container, self, self.db_manager, result_frame)
         self.frames[ActionsFrame] = actions_frame
 
         for frame in self.frames.values():

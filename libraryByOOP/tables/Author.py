@@ -1,20 +1,23 @@
 from DataManager import DataManager
 
 class Author(DataManager):
-    def __init__(self, db_path, id, name=None):
+    name = ""
+    def __init__(self, db_path, id=None, name=None):
         super().__init__(db_path)
+        self.table_name = "authors"
         self.id = id
         if not name:
-            data = self.fetch_records("authors", ("id", id))[0]
-            self.name = name or data.name
+            data = self.fetch_records(("id", id))[0]
 
-    def show_authors(self):
-        self.show_all_records(self, "authors")
+        self.name = name or data.name
 
-    def add_author(self):
-        fields = {'author_name': self.name}
-        self.add_record("authors", **fields)
+    def create(self):
+        if self.name:
+            fields = {'author_name': self.name}
+            self.add_record(**fields)
+        else:
+            print("Author name is required to add an author.")
 
     def update(self):
         updates = {'author_name': self.name}
-        self.update_record_by_id("authors", self.id, updates)
+        self.update_record_by_id(self.id, updates)

@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from BaseLabel import BaseLabel
+from tables.Book import Book
 
 
 class ResultFrame(tk.Frame):
@@ -17,15 +19,13 @@ class ResultFrame(tk.Frame):
         BaseLabel(self, text="Search results or Show All records by table:").pack(pady=0)
         self.columns = {"ID": 40, "Title": 400, "Pages": 100, "A ID": 40,
                         "Author": 200, "G ID": 40, "Genre": 200}
-        c_keys = self.columns.keys()
-        list_of_keys = list(c_keys)
-        self.tree = ttk.Treeview(self, columns=list_of_keys, show="headings")
+        self.tree = ttk.Treeview(self, columns=list(self.columns.keys()), show="headings")
 
-        for heading, w in self.columns.items():
-            self.tree.heading(heading, text=heading)
-            self.tree.column(heading, width=w)
-        self.tree.pack(pady=5)
-        
+        for col, width in self.columns.items():
+            self.tree.heading(col, text=col)
+            self.tree.column(col, width=width)
+
+        self.tree.pack(expand=True, fill='both')
 
     def update_treeview(self, records):
         # Clear the current view
@@ -34,11 +34,8 @@ class ResultFrame(tk.Frame):
         # Insert new records
         for record in records:
             self.tree.insert('', 'end', values=record)
+            print(record)
 
-    def show_all_records(self):
-        records = self.db_manager.fetch_records("books")
-        self.update_treeview(records)
-
-    def show_search_results(self, search_query):
-        records = self.db_manager.search_records(search_query)
+    def show_all_records(self, table="books"):
+        records = self.db_manager.fetch_records(table)
         self.update_treeview(records)
