@@ -3,7 +3,7 @@ from tkinter import Entry
 class BaseEntry(Entry):
     def __init__(self, master, **kwargs):
         style = {
-            'width': 65,
+            'width': 50,
             'font': ("Arial", 20),
             'bg': '#E8D8D6',
             'fg': '#290700'
