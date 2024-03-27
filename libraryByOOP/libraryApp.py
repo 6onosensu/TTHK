@@ -17,7 +17,6 @@ class LibraryApp(Tk):
         container.pack(padx=5, pady=5)
         
         self.db_manager = DataManager(db_path)
-        self.db_manager.create_tables()
         self.frames = {}
 
         result_frame = ResultFrame(container, self, self.db_manager)

@@ -63,37 +63,29 @@ class ActionsFrame(tk.Frame):
     def clear_entry(self):
         self.action_entry.delete(0, tk.END)
 
-    def show_table(self):
-        data = self.get_data().lower().strip()
-        match data:
-            case "genres":
-                records = self.db_manager.fetch_records("genres")
-            case "authors":
-                records = self.db_manager.fetch_records("authors")
-            case "books":
-                records = self.db_manager.fetch_records("books")
-            case _:
-                records = []
-                self.show_error("Invalid table name.")
+    def show_table(self, table = None):
+        toShow = table or self.get_data().lower().strip()
+        try:
+            records = self.db_manager.show_table(toShow)
+        except:
+            self.show_error("Invalid table name.")
         self.clear_entry()
         self.result_frame.update_treeview(records)
-        for record in records:
-            print(record)
 
     def add_author(self):
         data = self.get_data()
         name = data.strip()
-        
         author_adding = Author(self.db_manager.db_path, None, name)
         author_adding.create()
         self.clear_entry()
+        self.show_table("authors")
 
     def add_genre(self):
         name = self.get_data().strip()
-        
         genre_adding = Genre(self.db_manager.db_path, None, name)
         genre_adding.create()
         self.clear_entry()
+        self.show_table("genres")
 
     def add_book(self):
         data = self.get_data()
@@ -109,30 +101,36 @@ class ActionsFrame(tk.Frame):
             
             book_adding = Book(self.db_manager.db_path, None, title, pages, aID, gID)
             book_adding.create()
+            self.show_table("books")
         else:
             self.show_error("Invalid input format.")
         self.clear_entry()
 
     def update_record(self):
         data = self.get_data().split(", ")
-        if len(data) >= 3:
+        if len(data) >= 2:
             toUpdate = data[0].strip()
+            table = toUpdate + "s"
             id = int(data[1].strip())
-            record = self.record_to_update(toUpdate, id)
+            record = self.get_record(toUpdate, id)
             record.name = data[2]
-            if data[3]:
-                record.num_of_pages = int(data[3])
-            if data[4]:
-                record.author_id = int(data[4])
-            if data[5]:
-                record.genre_id = int(data[5])
+            try:
+                if data[3]:
+                    record.num_of_pages = int(data[3])
+                if data[4]:
+                    record.author_id = int(data[4])
+                if data[5]:
+                    record.genre_id = int(data[5])
+            except:
+                pass
             record.update()
+            self.show_table(table)
         else:
             self.show_error("Not enough data provided for update.")
         self.clear_entry()
  
-    def record_to_update(self, toUpdate, id):
-        match toUpdate:
+    def get_record(self, table, id):
+        match table:
             case "genre":
                 return Genre(self.db_manager.db_path, id)
             case "author":
@@ -143,9 +141,12 @@ class ActionsFrame(tk.Frame):
     def delete_record(self):
         data = self.get_data().split(", ")
         toDelete = data[0].strip().lower()
+        table = toDelete + "s"
         id = int(data[1].strip())
-        if toDelete in ["books", "authors", "genres"]:
-            self.db_manager.delete_record_by_id(f"{toDelete}s", id)
-        else:
+        try:
+            record = self.get_record(toDelete, id)
+            record.delete()
+        except:
             self.show_error("Invalid record type.")
-        self.clear_entry()
+        self.clear_entry()      
+        self.show_table(table)

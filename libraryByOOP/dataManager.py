@@ -3,6 +3,7 @@ from sqlite3 import Error
 
 class DataManager:
     table_name = ""
+    record_id = ""
     def __init__(self, db_path):
         self.db_path = db_path
         self.conn = self.create_connection()
@@ -54,27 +55,34 @@ class DataManager:
         self.execute_query(query, tuple(fields.values()))
 
     def delete_record_by_id(self, id):
-        query = f"DELETE FROM {self.table_name} WHERE id = ?"
+        query = f"DELETE FROM {self.table_name} WHERE {self.record_id} = ?"
         self.execute_query(query, (id,))
-        print(f"Record with id {self.id} from table {self.table_name} has been deleted.")
+        print(f"Record with id {id} from table {self.table_name} has been deleted.")
 
     def update_record_by_id(self, id, updates):
         update_clause = ', '.join(f"{k} = ?" for k in updates.keys())
-        query = f"UPDATE {self.table_name} SET {update_clause} WHERE id = ?"
+        query = f"UPDATE {self.table_name} SET {update_clause} WHERE {self.record_id} = ?"
         params = tuple(updates.values()) + (id,)
         try:
             self.execute_query(query, params)
-            print(f"Record with id {self.id} from table {self.table_name} has been updated.")
+            print(f"Record with id {id} from table {self.table_name} has been updated.")
         except Exception as e:
             print(f"An error occured: {e}")
 
-    def fetch_records(self, condition=None): #show_table_records
-        query = f"SELECT * FROM {self.table_name}"
-        if condition:
-            query += f" WHERE {condition}"
+    def show_table(self, table):
+        query = f"SELECT * FROM {table}"
         cursor = self.conn.cursor()
         cursor.execute(query)
         return cursor.fetchall()
+    
+    def fetch_by_id(self, id):
+        query = (
+            f"SELECT * FROM {self.table_name}"
+            f" WHERE {self.record_id} = {id}"
+        )
+        cursor = self.conn.cursor()
+        cursor.execute(query)
+        return cursor.fetchone()
     
     def execute_query(self, query, params=None):
         try:
